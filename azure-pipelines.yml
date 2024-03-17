@@ -1,45 +1,46 @@
-trigger:
+trigger: 
 - main
 
 stages:
 - stage: Build
-  jobs: 
+  jobs:
   - job: Build
-    pool: 
-      vmImage: ubuntu-latest
+    pool:
+      vmImage: 'ubuntu-latest'
     steps:
-      - task: TerraformTaskV4@4
-        displayName: Tf init
-        inputs:
-          provider: 'azurerm'
-          command: 'init'
-          backendServiceArm: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
-          backendAzureRmResourceGroupName: 'terraform-state'
-          backendAzureRmStorageAccountName: 'stbestrongeastus001'
-          backendAzureRmContainerName: 'cibestrong001'
-          backendAzureRmKey: 'terraform.tfstate'
-      - task: TerraformTaskV4@4
-        displayName: Tf validate
-        inputs:
-          provider: 'azurerm'
-          command: 'validate'
-      - task: TerraformTaskV4@4
-        displayName: Tf plan
-        inputs:
-          provider: 'azurerm'
-          command: 'plan'
-          commandOptions: '-out $(Build.SourcesDirectory)/tfplanfile'
-          environmentServiceNameAzureRM: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
-      - task: ArchiveFiles@2
-        displayName: archive files
-        inputs:
-          rootFolderOrFile: '$(Build.SourcesDirectory)/'
-          includeRootFolder: false
-          archiveType: 'zip'
-          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-          replaceExistingArchive: true
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: '$(Build.BuildId)-build'
-          publishLocation: 'Container'
+    - task: TerraformTaskV4@4
+      displayName: Tf init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
+        backendAzureRmResourceGroupName: 'terraform-state'
+        backendAzureRmStorageAccountName: 'stbestrongeastus001'
+        backendAzureRmContainerName: 'cibestrong001'
+        backendAzureRmKey: 'terraform.tfstate'
+    - task: TerraformTaskV4@4
+      displayName: Tf validate
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+    - task: TerraformTaskV4@4
+      displayName: Tf plan
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        commandOptions: '-out $(Build.SourcesDirectory)/tfplanfile'
+        environmentServiceNameAzureRM: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
+      
+    - task: ArchiveFiles@2
+      displayName: Archive files
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)/'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: '$(Build.BuildId)-build'
+        publishLocation: 'Container'
