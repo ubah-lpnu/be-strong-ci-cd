@@ -40,7 +40,7 @@ stages:
           commandOptions: '-out $(Build.SourcesDirectory)/tfplanfile'
           environmentServiceNameAzureRM: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
       - task: ArchiveFiles@2
-        displayName: archive files
+        displayName: Archive files
         inputs:
           rootFolderOrFile: '$(Build.SourcesDirectory)/'
           includeRootFolder: false
