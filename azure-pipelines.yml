@@ -1,5 +1,14 @@
 trigger:
-- main
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - README.md
+pr:
+  branches:
+    include:
+      - main
 
 stages:
 - stage: Build
