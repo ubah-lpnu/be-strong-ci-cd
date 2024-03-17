@@ -6,6 +6,12 @@ terraform {
       version = ">=3.0.2"
     }
   }
+  backend "azurerm" {
+    resource_group_name  = "terraform-state"
+    storage_account_name = "stbestrongeastus001"
+    container_name       = "cibestrong001"
+    key                  = "terraform.tfstate"
+  }
 }
 
 provider "azurerm" {
