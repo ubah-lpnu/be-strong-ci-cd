@@ -1,14 +1,5 @@
 trigger:
-  branches:
-    include:
-      - main
-  paths:
-    exclude:
-      - README.md
-pr:
-  branches:
-    include:
-      - main
+- main
 
 stages:
 - stage: Build
@@ -40,7 +31,7 @@ stages:
           commandOptions: '-out $(Build.SourcesDirectory)/tfplanfile'
           environmentServiceNameAzureRM: 'Azure for Students(85bd95c0-eabe-403c-87b6-f72ae70ec867)'
       - task: ArchiveFiles@2
-        displayName: Archive files
+        displayName: archive files
         inputs:
           rootFolderOrFile: '$(Build.SourcesDirectory)/'
           includeRootFolder: false
@@ -52,6 +43,3 @@ stages:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: '$(Build.BuildId)-build'
           publishLocation: 'Container'
-
-
-
