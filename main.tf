@@ -23,6 +23,11 @@ resource "azurerm_resource_group" "rg" {
   name     = "myTFResourceGroup"
   location = "East US"
 }
+
+resource "azurerm_resource_group" "rg2" {
+  name     = "myTFResourceGroup2"
+  location = "East US"
+}
  
 resource "azurerm_virtual_network" "vnet" {
     name                = "myTFVNet"
