@@ -1,11 +1,7 @@
-trigger:
+pr:
   branches:
     include:
       - main
-  paths:
-    include:
-      - main.tf
-      - azure-pipelines.yml
 
 stages:
 - stage: Build
